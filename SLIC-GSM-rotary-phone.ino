@@ -203,6 +203,15 @@ void setup() {
   pinMode(ringTestPin, INPUT_PULLUP);
   #endif
 
+byte pulses = 0;
+byte digit = 0;
+String number = "";
+byte digits = 0;            // the number of digits we have collected
+char numArray[10];
+byte lteStatus;
+byte state;
+bool incoming
+
   Serial.println("\nHello, I am your telephone.");
 
   state = IDLE_WAIT;
@@ -239,8 +248,9 @@ void loop() {
   if ((unsigned long)(currentMillis - statusPreviousMillis) >= statusCheckInterval) {
     // Time to check status of GSM board
     #if defined(SIMCOM_7000)        
-    if (!digitalRead(rcPin) && (state != GETTING_NUMBER) { // or software serial will interfere with ringing and dialing
-      gsmStatus = call.CallStatus();   //lteStatus = getCallStatus();
+
+    if (!digitalRead(rcPin) && (incoming != GETTING_NUMBER) { // or software serial will interfere with ringing and dialing
+      lteStatus = getCallStatus();
     }
     #endif
     #if defined(SLIC_TEST)
@@ -257,11 +267,12 @@ void loop() {
   if (state == IDLE_WAIT) {
     // wait for incoming call or picking up reciever
     #if defined(SIMCOM_7000)
-    if (gsmStatus == CALL_INCOM_VOICE) {  //lteStatus == RINGING
+       onIncomingCall()= incoming
+    if (incoming == true) {  
       Serial.println("Incoming call. Ringing.");
       state = RINGING;  
     }
-    if (gsmStatus == CALL_ACTIVE_VOICE) {
+    if (lteStatus == 4) {
       // this should not happen
       // hanging up must have failed, try again
       HangUp();
@@ -316,7 +327,8 @@ void loop() {
       state = ACTIVE_CALL; 
     }
     #if defined(SIMCOM_7000)
-    if (gsmStatus != CALL_INCOM_VOICE) {
+    
+    if (lteStatus != 4) {
       digitalWrite(rcPin, 0); // stop ringing
       digitalWrite(hzPin, 0);
       Serial.println("Caller gave up. Going back to idle.");
@@ -349,7 +361,7 @@ void loop() {
       state = IDLE_WAIT;
     }
     #if defined(SIMCOM_7000)
-    if (gsmStatus == CALL_NONE) {
+    if (lteStatus == 1) {
       Serial.println("Call disconnected. Going idle.");
       flushNumber();
       state = IDLE_WAIT;
