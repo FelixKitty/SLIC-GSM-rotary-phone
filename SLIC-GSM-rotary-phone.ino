@@ -8,23 +8,23 @@
 //                                                                        // 
 ////////////////////////////////////////////////////////////////////////////
 
-#define GSM_MODULE
+#define GSM_MODULE   //(fona libaray "getNetworkStatus" ?)
 //#define SLIC_TEST
 
-#if defined(GSM_MODULE)
-#include "SIM900.h"
+#if defined(GSM_MODULE)  //#if defined(getNetworkStatus)
+//#include "SIM900.h"
 #include <SoftwareSerial.h>
-#include "call.h"
+//#include "call.h"
 #endif
 
-// states of state machine 
-#define IDLE_WAIT 1
-#define RINGING 2
-#define ACTIVE_CALL 3
-#define GETTING_NUMBER 4
+// states of state machine    EDIT TO: state = getCallStatus 
+#define IDLE_WAIT 1                 //  0 IDLE_WAIT
+#define RINGING 2                   //  3 RINGING
+#define ACTIVE_CALL 3                // 4 ACTIVE_CALL
+#define GETTING_NUMBER 4             // 2 unknown
 
 
-#define rflPin 6        // RFL pin to QCX601 pin J1-1, reverse signal (LOW)
+//#define rflPin 6        // RFL pin to QCX601 pin J1-1, reverse signal (LOW)
 #define hzPin 7         // 25Hz pin to QCX601 pin J1-2 (25Hz signal for ringing) _-_-_-_-_
 #define rcPin 8         // RC pin to QCX601 pin J1-3, ring control, HIGH when ringing --___--___--___
 #define shkPin 9        // switch hook pin from QCX601 pin J1-4
@@ -69,7 +69,7 @@ byte digit = 0;
 String number = "";
 byte digits = 0;            // the number of digits we have collected
 char numArray[11];
-byte gsmStatus;
+byte gsmStatus;             //byte lteStatus
 byte state;
 
 #if defined(GSM_MODULE)
@@ -133,9 +133,9 @@ void loop() {
 
   if ((unsigned long)(currentMillis - statusPreviousMillis) >= statusCheckInterval) {
     // Time to check status of GSM board
-    #if defined(GSM_MODULE)
+    #if defined(GSM_MODULE)         //if Network status = 1
     if (!digitalRead(rcPin) && (state != GETTING_NUMBER)) { // or software serial will interfere with ringing and dialing
-      gsmStatus = call.CallStatus();
+      gsmStatus = call.CallStatus();   //lteStatus = getcallstauts
     }
     #endif
     #if defined(SLIC_TEST)
