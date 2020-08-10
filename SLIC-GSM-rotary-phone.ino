@@ -91,6 +91,7 @@ byte digits = 0;            // the number of digits we have collected
 char numArray[10];
 byte lteStatus;            
 byte state;
+bool incoming;
 
 
 
