@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////
 //                                                                        //
-//  ROTARY PHONE GSM CONVERTER WITH SUBSCRIBER LINE INTERFACE CIRCUIT     //
+//  ROTARY PHONE LTE CONVERTER WITH SUBSCRIBER LINE INTERFACE CIRCUIT     //
 //                                                                        //
-//  By Johan Berglund, November 2016                                      //
+//  By FELIX KITTY, AUGUST 2020   ISO EDITION                             //
 //                                                                        //
-//  For Arduino, QCX601 SLIC board and SIM900 or SIM800 breakout board    //
+//  For Arduino, KS0835F SLIC board and SIM7000                           //
 //                                                                        // 
 ////////////////////////////////////////////////////////////////////////////
 #include "Adafruit_FONA.h"
