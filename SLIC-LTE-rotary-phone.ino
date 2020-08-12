@@ -45,9 +45,9 @@ char imei[16] = {0}; // MUST use a 16 character buffer for IMEI!
 
 
 
-#define hzPin 7         // 25Hz pin to QCX601 pin 3 (25Hz signal for ringing) _-_-_-_-_
-#define rcPin 8         // RC pin to QCX601 pin 4, ring control, HIGH when ringing --___--___--___
-#define shkPin 9        // switch hook pin from QCX601 pin 5
+#define hzPin 7         // 25Hz pin to KS0835F pin 3 (25Hz signal for ringing) _-_-_-_-_
+#define rcPin 8         // RC pin to KS0835F pin 4, ring control, HIGH when ringing --___--___--___
+#define shkPin 9        // switch hook pin from KS0835F pin 5
                         // Change the pins above as is suits your project
                         // For SLIC board to rotarary, pin 7 goes to EAR and pin 6 to MIC
                 
