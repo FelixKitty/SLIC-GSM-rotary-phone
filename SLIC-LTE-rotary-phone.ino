@@ -45,15 +45,14 @@ char imei[16] = {0}; // MUST use a 16 character buffer for IMEI!
 
 
 
-#define hzPin 7         // 25Hz pin to QCX601 pin J1-2 (25Hz signal for ringing) _-_-_-_-_
-#define rcPin 8         // RC pin to QCX601 pin J1-3, ring control, HIGH when ringing --___--___--___
-#define shkPin 9        // switch hook pin from QCX601 pin J1-4
-
+#define hzPin 7         // 25Hz pin to QCX601 pin 3 (25Hz signal for ringing) _-_-_-_-_
+#define rcPin 8         // RC pin to QCX601 pin 4, ring control, HIGH when ringing --___--___--___
+#define shkPin 9        // switch hook pin from QCX601 pin 5
                         // Change the pins above as is suits your project
-                        // For connection to GSM board, pin 2 goes to TX and pin 3 to RX
-                        // To change this, edit GSM.cpp in the GSM library
+                        // For SLIC board to rotarary, pin 7 goes to EAR and pin 6 to MIC
+                
                         
-#if defined(SLIC_TEST)
+//#if defined(SLIC_TEST)
 #define ringTestPin 12 
 #endif                       
 
@@ -170,8 +169,8 @@ void setup() {
   // can be removed, but APN is required.
   //fona.setNetworkSettings(F("your APN"), F("your username"), F("your password"));
   //fona.setNetworkSettings(F("m2m.com.attz")); // For AT&T IoT SIM card
-  //fona.setNetworkSettings(F("telstra.internet")); // For Telstra (Australia) SIM card - CAT-M1 (Band 28)
-  fona.setNetworkSettings(F("hologram")); // For Hologram SIM card
+  fona.setNetworkSettings(F("telstra.internet")); // For Telstra (Australia) SIM card - CAT-M1 (Band 28)    also optus is BAND 7 (need to add 7)
+  //fona.setNetworkSettings(F("hologram")); // For Hologram SIM card
 
   // Optionally configure HTTP gets to follow redirects over SSL.
   // Default is not to follow SSL redirects, however if you uncomment
